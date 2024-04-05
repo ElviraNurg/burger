@@ -1,0 +1,14 @@
+@media(min-width:768px) {
+    .mainconstructor__wrapper {
+        display: grid;
+        grid-template-columns: 330px auto;
+    }
+}
+
+@media(min-width:1300px) {
+    .mainconstructor__wrapper {
+        justify-content: center;
+        display: grid;
+        grid-template-columns: 600px 600px;
+    }
+}

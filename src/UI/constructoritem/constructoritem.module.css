@@ -1,0 +1,120 @@
+.constructor__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 72px;
+    width: 100%;
+    position: relative;
+    justify-content: space-between;
+}
+
+/* .constructor__item:last-child img {
+    transform: rotate(180deg);
+} */
+
+.constructor__box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 72px;
+    width: 100%;
+    position: relative;
+    justify-content: space-between;
+}
+
+.constructor__item_swipe {
+    right: 144px;
+    overflow: hidden;
+    width: calc(100% + 144px);
+}
+
+.constructor__nav {
+    background-color: var(--background);
+    padding: 0;
+}
+
+.constructor__nav_none {
+    opacity: 0;
+    width: 28px;
+}
+
+.constructor__image {
+    width: 52px;
+    height: 40px;
+    object-fit: cover;
+}
+
+.constructor__name,
+.constructor__price {
+    margin: 0;
+}
+
+.constructor__name {
+    width: 153px;
+}
+
+.constructor__price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.constructor__button {
+    display: none;
+}
+
+.constructor__button_swipe {
+    background-color: var(--error);
+    width: 144px;
+    min-height: 72px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@media(min-width:768px) {
+
+    .constructor__box {
+        background-color: var(--modal-bc);
+        padding: 0 24px;
+        box-sizing: border-box;
+        border-radius: 40px;
+    }
+
+    .constructor__item:first-child .constructor__box {
+        border-radius: 88px 88px 40px 40px;
+    }
+
+    .constructor__item:last-child .constructor__box {
+        border-radius: 40px 40px 88px 88px;
+    }
+
+    .constructor__nav_none {
+        width: 16px;
+    }
+
+    .constructor__name {
+        width: min-content;
+        min-width: 133px;
+    }
+
+    .constructor__item_swipe {
+        right: 0;
+        width: 100%
+    }
+
+    .constructor__image {
+        width: 80px;
+        height: 40px;
+    }
+
+    .constructor__button {
+        display: block;
+        background-color: var(--modal-bc);
+    }
+}
+
+@media(min-width:1300px) {
+    .constructor__name {
+        width: 254px;
+    }
+}

@@ -1,0 +1,38 @@
+.header__logodesktop{
+    display: none;
+}
+
+@media(min-width:768px) {
+    .header__link{
+        z-index: 2;  
+        position: absolute;
+        left: 50%;
+        margin-left: -20px;
+    }
+
+    .header__logo {
+        position: absolute; 
+        left: 50%;
+        margin-left: -20px;
+        margin-top: -20px;
+    }
+}
+
+@media(min-width:1300px) {
+    .header__link{
+        z-index: 2;  
+        position: absolute;
+        left: 495px;
+    }
+    
+    .header__logo {
+        position: absolute; 
+        left: 50%;
+        margin-left: -20px;
+        margin-top: -10px;
+    }
+
+    .header__logodesktop{
+        display: block;
+    }
+}

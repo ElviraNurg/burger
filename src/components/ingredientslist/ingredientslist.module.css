@@ -1,0 +1,18 @@
+.ingridients__box {
+    padding: 0 8px;
+}
+
+.ingridients__name {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 0;
+}
+
+.ingridients__list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    gap: 16px;
+}

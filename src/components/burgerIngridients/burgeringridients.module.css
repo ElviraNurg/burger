@@ -1,0 +1,22 @@
+.ingridients {
+    position: relative;
+}
+
+.ingridients__wrapper {
+    width: 100%;
+    background-color: var(--background);
+  }
+
+.ingridients__title {
+    display: none;
+}
+
+.ingridients__list_box{
+    overflow: auto;
+    height: 80vh;
+}
+@media(min-width:768px) {
+    .ingridients__title {
+        display: block;
+    }
+}

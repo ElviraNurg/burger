@@ -1,0 +1,23 @@
+.button {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    width: max-content;
+    justify-content: center;
+    background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+    border-radius: 32px;
+    line-height: 20px;
+    color: #F2F2F3;
+    padding: 0 40px;
+    margin: 0 auto;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+@media(min-width:768px) {
+    .button {
+        font-size: 16px;
+        margin: 0;
+    }
+}

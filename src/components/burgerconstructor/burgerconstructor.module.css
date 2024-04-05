@@ -1,0 +1,28 @@
+.constructor__section {
+    padding: 0 8px;
+    box-sizing: border-box;
+
+}
+
+
+@media(min-width:768px) {
+    .constructor__section {
+        padding: 100px 16px;
+        box-sizing: border-box;
+    }
+
+    .constructor__wrapper {
+        overflow: auto;
+        height: 70vh;
+    }
+
+    .constructor__list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        outline: solid red 1px;
+        min-height: 100%;
+    }
+
+    
+}

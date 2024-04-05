@@ -1,0 +1,42 @@
+.form{
+    width: 304px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.enter__text{
+    color: #8585AD;
+    text-align: center;
+    margin: 0;
+    line-height: 20px;
+}
+
+.enter__link{
+    display: flex;
+    justify-content: center;
+    color: #4C4CFF;
+    text-align: center;
+    margin: 0;
+    line-height: 20px;
+}
+
+.enter__box{
+    margin-bottom: 20px;
+}
+
+@media(min-width:1300px){
+    .form{
+        width: 480px;
+        gap: 24px;
+        margin-bottom: 80px;
+    }
+
+    .enter__box{
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+    }
+}
