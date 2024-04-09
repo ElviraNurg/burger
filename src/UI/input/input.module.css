@@ -15,3 +15,14 @@
 .input:focus {
     outline: none;
 }
+
+.label{
+    position: relative;
+    width: 100%;
+}
+
+.label__icon{
+    position: absolute;
+    top: -53px;
+   right: 12px;
+}

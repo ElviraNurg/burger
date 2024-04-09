@@ -39,11 +39,11 @@ const Enter = () => {
             </form>
             <div className={styles.enter__box}>
                 <p className={styles.enter__text}>Вы — новый пользователь?</p>
-                <Link className={styles.enter__link} to={'/registration'}>Зарегистрироваться</Link>
+                <Link className={styles.enter__link} to={'/register'}>Зарегистрироваться</Link>
             </div>
             <div className={styles.enter__box}>
                 <p className={styles.enter__text}>Забыли пароль?</p>
-                <Link className={styles.enter__link} to={'/RecoverPassword'}>Восстановить пароль</Link>
+                <Link className={styles.enter__link} to={'/forgot-password'}>Восстановить пароль</Link>
             </div>
 
         </>

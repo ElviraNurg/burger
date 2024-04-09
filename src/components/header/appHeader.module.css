@@ -109,8 +109,24 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    position: relative;
+}
+.nav__item_wrapper{
+    width: 100%;
 }
 
+.nav__item_wrapper button {
+    background-color: var(--background);
+    color: #8585AD;
+    padding: 0;
+    width: 100%;
+}
+
+.nav__item_wrapper:active button,
+.nav__item_wrapper:hover button,
+.nav__item_wrapper:focus button {
+    color: #f2f2f3;
+}
 .nav__link .nav__icon,
 .nav__link {
     fill: #8585AD;
@@ -121,6 +137,15 @@
 .nav__link:active .nav__icon {
     fill: #f2f2f3;
     color: #f2f2f3;
+}
+
+.nav__link.nav__link__active{
+    color: #f2f2f3;
+}
+
+.nav__arrow{
+    position: absolute;
+    right: 20px;
 }
 
 @media(min-width:768px) {
@@ -178,7 +203,7 @@
         position: relative;
     }
 
-    
+
 
 
     .nav__opened,

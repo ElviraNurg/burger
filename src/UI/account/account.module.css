@@ -1,0 +1,8 @@
+.submenu__item {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    color: #8585AD;
+    padding-left: 40px;
+    box-sizing: border-box;
+}

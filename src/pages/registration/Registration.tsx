@@ -7,6 +7,7 @@ import Button from "../../UI/button/button";
 import styles from '../enter/enter.module.css';
 import { useTypedDispatch } from "../../hooks/useTypedSelector";
 import { addRegValue, reg } from "../../store/auth/authSlice";
+import { FormEvent } from "react";
 import useForm from "../../hooks/UseForm";
 
 const Registration = () => {
@@ -14,7 +15,7 @@ const Registration = () => {
 
     const {values, onChange} = useForm();
     
-    const getReg = (e: React.FormEvent<HTMLFormElement>) => {
+    const getReg = (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         values&&dispatch(reg(values));
 console.log(values);
@@ -51,7 +52,7 @@ console.log(values);
             </form>
             <div className={styles.enter__box}>
                 <p className={styles.enter__text}>Уже зарегистрированы?</p>
-                <Link className={styles.enter__link} to={'/enter'}>Войти</Link>
+                <Link className={styles.enter__link} to={'/login'}>Войти</Link>
             </div>
 
 
