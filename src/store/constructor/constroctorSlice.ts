@@ -55,9 +55,7 @@ const constructorSlice = createSlice({
     initialState: InitialState,
     reducers: {
         addItem: (state, action: PayloadAction<IIngredientType>) => {
-            //console.log(action.payload);
-
-            action.payload.type === 'bun' ?
+                action.payload.type === 'bun' ?
                 state.orderItems.bun = [action.payload]
                 : state.orderItems.otherIngridients = [...state.orderItems.otherIngridients, action.payload]
         },
@@ -75,9 +73,9 @@ const constructorSlice = createSlice({
             state.orderItems.otherIngridients = state.orderItems.otherIngridients.filter(el => el.type !== action.payload)
         },
         change: (state, action) => {
-            //console.log(action.payload);
-            
-            state.orderItems.otherIngridients = action.payload;
+            console.log(action.payload);
+
+            state.orderItems = action.payload;
 
         },
 

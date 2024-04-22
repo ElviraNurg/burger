@@ -5,26 +5,30 @@ import Title from '../../UI/title/Title';
 import Input from "../../UI/input/input";
 import Button from "../../UI/button/button";
 import styles from '../enter/enter.module.css';
-import { useTypedDispatch } from "../../hooks/useTypedSelector";
+import { useTypedDispatch, useTypedSelector } from "../../hooks/useTypedSelector";
 import { addRegValue, reg } from "../../store/auth/authSlice";
 import { FormEvent } from "react";
 import useForm from "../../hooks/UseForm";
-
+import { useNavigate } from "react-router-dom";
 const Registration = () => {
     const dispatch = useTypedDispatch()
+    const navigate = useNavigate();
+    const authorized = useTypedSelector(store => store.auth.authUser);
+    const { values, onChange } = useForm();
 
-    const {values, onChange} = useForm();
-    
-    const getReg = (e:FormEvent<HTMLFormElement>) => {
+    const getReg = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        values&&dispatch(reg(values));
-console.log(values);
+        values && dispatch(reg(values));
+        console.log(values);
 
     }
-     
-         useEffect(() => {
-            values&&dispatch(addRegValue(values))
-        }, [values])  
+    useEffect(() => {
+        authorized && navigate('/')
+    }, [authorized])
+
+    useEffect(() => {
+        values && dispatch(addRegValue(values))
+    }, [values])
     return (
         <>
             <AppHeader />

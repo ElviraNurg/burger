@@ -1,0 +1,10 @@
+@media(min-width:768px){
+    .profile__desktop_box{
+        max-width: 860px;
+        display: grid;
+        grid-template-columns: 320px auto;
+        gap: 60px;
+        padding-top: 120px;
+        box-sizing: border-box;
+    }
+}

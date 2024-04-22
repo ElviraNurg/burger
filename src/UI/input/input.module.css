@@ -1,5 +1,6 @@
 .input {
     min-width: 304px;
+    max-width: 480px;
     min-height: 48px;
     border-radius: 40px;
     background-color: #2F2F37;
@@ -16,13 +17,26 @@
     outline: none;
 }
 
+.input::placeholder{
+    color: var(--text-lilac);
+}
+
 .label{
-    position: relative;
-    width: 100%;
+    position: absolute;
+    top: 0;
+    padding-left: 20px;
+    min-width: 304px;
+    max-width: 480px;
+    box-sizing: border-box;
 }
 
 .label__icon{
     position: absolute;
     top: -53px;
+   right: 12px;
+}
+.label__change_icon{
+    position: absolute;
+    top: calc(50%);
    right: 12px;
 }

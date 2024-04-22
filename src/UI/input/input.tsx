@@ -1,12 +1,17 @@
-import { FormEvent } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
+import { Dispatch } from 'react';
 import styles from './input.module.css';
-import LookPass from '../../assets/icons/lookPass.svg?react'
+import LookPass from '../../assets/icons/lookPass.svg?react';
+import ChangeIcon from '../../assets/icons/change-icon.svg?react'
 type InputProps = {
     text?: string;
     inputType: string;
     inputName: string;
-    placeholder: string;
+    placeholder?: string;
     value: string;
+    parent?: string;
+    disabled?: boolean;
+    setDisabled?: Dispatch<React.SetStateAction<boolean>>;
     onChange: (e: FormEvent<HTMLInputElement>) => void;
     settigs?: { [name: string]: string | number }
 }
@@ -15,20 +20,41 @@ type InputProps = {
 //     maxLength: 8
 // }
 
-const Input = ({ inputType, inputName, placeholder, text, value, onChange, settigs }: InputProps) => {
+const Input = ({ inputType, inputName, placeholder, text, value, disabled, setDisabled, parent, onChange }: InputProps) => {
+const [passInputType, setPassInputType]=useState(inputType)
+    const onClick = () => {
+        setDisabled && setDisabled(prev => !prev)
+    }
+    const changeInputType=()=>{
+        passInputType==='password'?
+setPassInputType('text'):setPassInputType('password')
+    }
+    useEffect(() => { }, [disabled])
     return (
         <>
             <input
                 /*             {...settigs}
                             minLength={2} maxLength={8} */
                 className={styles.input}
-                type={inputType}
+                type={inputName==='password'?passInputType:inputType}
                 name={inputName}
                 placeholder={placeholder}
                 value={value}
-                onChange={onChange} />
+                onChange={onChange}
+                disabled={parent === 'profile' && disabled ? true : false}
+            />
 
-            <label className={styles.label} htmlFor={inputName}>{text} {inputType === 'password' && <LookPass className={styles.label__icon} />}</label>
+            <label className={styles.label} htmlFor={inputName}>
+                {text}
+                {inputName === 'password'&&parent !== 'profile' 
+                 && <LookPass
+                 onClick={changeInputType}
+                 className={styles.label__icon} />}
+                {parent === 'profile' && disabled &&
+                    <ChangeIcon
+                        onClick={onClick}
+                        className={styles.label__change_icon} />}
+            </label>
         </>
 
     )

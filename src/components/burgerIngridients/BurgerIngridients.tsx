@@ -62,7 +62,7 @@ const BurgerIngridients = () => {
     }, [orderNum])
 
     useEffect(() => {
-        modalOrderActive === null && dispatch(clearOrderNum())
+       !modalOrderActive && dispatch(clearOrderNum())
     }, [modalOrderActive])
 
     return (

@@ -103,10 +103,7 @@ export const reg = createAsyncThunk(
             if (!response.ok) {
                 throw new Error('404 - Error')
             }
-            console.log('response.json()', response.json());
-
-            const data = await response.json()
-            return data;
+            return response.json()
 
         } catch (error: any) {
             return rejectWithValue(error.message)
@@ -127,9 +124,11 @@ export const auth = createAsyncThunk(
             if (!response.ok) {
                 throw new Error('404 - Error')
             }
-            console.log('response.json()', response.json());
+            // console.log('response.json()', response.json());
 
-            const data = await response.json()
+            const data = response.json();
+            // console.log('data', data);
+
             return data;
 
         } catch (error: any) {
@@ -139,23 +138,80 @@ export const auth = createAsyncThunk(
 
 export const checkToken = createAsyncThunk(
     'checkToken',
-    async function (_, { rejectWithValue }) {
+    async function (action: string, { rejectWithValue }) {
         try {
             const response = await fetch(`${config.baseUrl}${config.token}`, {
-                method: "GET",
+                method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${localStorage.getItem('token')}`
+                    'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    token: action,
+                })
             })
             if (!response.ok) {
                 throw new Error('404 - Error')
             }
-            console.log('response.json()', response.json());
+            // console.log('response.json()', response.json());
 
             const data = await response.json()
             return data;
 
+        } catch (error: any) {
+            return rejectWithValue(error.message)
+        }
+    })
+
+export const changeUserDatas = createAsyncThunk(
+    'changeUserDatas',
+    async function (action: { values: ISetValues, token: string }, { rejectWithValue }) {
+
+        try {
+            const response = await fetch(`${config.baseUrl}${config.user}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: action.token
+                },
+                body: JSON.stringify(action.values)
+            })
+            if (!response.ok) {
+                throw new Error('404 - Error')
+            }
+            console.log('response', response);
+
+            const data = response.json();
+            console.log('data', data);
+
+            return data;
+
+        } catch (error: any) {
+            return rejectWithValue(error.message)
+        }
+    })
+
+
+export const getUserOrders = createAsyncThunk(
+    'getUserOrders',
+    async function (action: string, { rejectWithValue }) {
+        console.log(action);
+
+        try {
+            const response = await fetch(`${config.baseUrl}${config.user}`, {
+                /*   wss://norma.nomoreparties.space/orders/all */
+                method: "GET",
+                headers: {
+                    authorization: JSON.parse(action),
+                    'Content-Type': 'application/json'
+                },
+
+            })
+            if (!response.ok) {
+                throw new Error('Error')
+            }
+            console.log('!!!!!!!!!!', response.json());
+
+            return response.json();
         } catch (error: any) {
             return rejectWithValue(error.message)
         }
@@ -168,57 +224,76 @@ const authSlice = createSlice({
         addRegValue: (state, action: PayloadAction<ISetValues>) => {
             state.regValue = action.payload;
         },
+        exit: (state) => {
+            state.authUser = false;
+            state.regValue = {}
+        }
 
     },
     extraReducers: (builder) => {
-        //checkToken
-        builder.addCase(checkToken.pending, (state) => {
+        //changeUserDatas
+        builder.addCase(changeUserDatas.pending, (state) => {
             state.loading = true
-        })
-        builder.addCase(checkToken.fulfilled, (state, action) => {
-            state.loading = false;
-            console.log(action.payload);
+        }),
+            builder.addCase(changeUserDatas.fulfilled, (state, action) => {
+                state.loading = false;
+               // console.log('changeUserDatas');
 
-            state.authUser = true;
-        })
-        builder.addCase(checkToken.rejected, (state, action) => {
-            state.error = action.payload
+                console.log('changeUserDatas',action.payload);
+                state.user = action.payload.user
+            }),
+            builder.addCase(changeUserDatas.rejected, (state, action) => {
+                state.error = action.payload
+                console.log('err');
 
-        })
-        //auth
-        builder.addCase(auth.pending, (state) => {
-            state.loading = true
-        })
-        builder.addCase(auth.fulfilled, (state, action) => {
-            state.loading = false;
-            console.log('auth');
 
-           // console.log('actionPayload.accessToken', action.payload.accessToken);
-
-          //  localStorage.setItem('token', JSON.stringify(action.payload.accessToken))
-        })
-        builder.addCase(auth.rejected, (state, action) => {
-            state.error = action.payload
-
-        })
-        //registr
-        builder.addCase(reg.pending, (state) => {
-            state.loading = true
-        })
+            }),
+            //checkToken
+            builder.addCase(checkToken.pending, (state) => {
+                state.loading = true
+            }),
+            builder.addCase(checkToken.fulfilled, (state) => {
+                state.loading = false;
+                state.authUser = true;
+            }),
+            builder.addCase(checkToken.rejected, (state, action) => {
+                state.error = action.payload
+            }),
+            //auth
+            builder.addCase(auth.pending, (state) => {
+                state.loading = true;
+            }),
+            builder.addCase(auth.fulfilled, (state, action) => {
+                state.loading = false;
+                localStorage.setItem('token', action.payload.accessToken);
+                localStorage.setItem('refreshToken', action.payload.refreshToken);
+                state.user.name = action.payload.user.name;
+                state.user.email = action.payload.user.email;
+            }),
+            builder.addCase(auth.rejected, (state, action) => {
+                state.error = action.payload
+            }),
+            //registr
+            builder.addCase(reg.pending, (state) => {
+                state.loading = true
+            })
         builder.addCase(reg.fulfilled, (state, action) => {
             state.loading = false;
-            console.log('actionPayload.accessToken', action.payload.accessToken);
-
-            localStorage.setItem('token', JSON.stringify(action.payload.accessToken))
+            console.log(action.payload);
+            
+            state.user.name = action.payload.user.name;
+            state.user.email = action.payload.user.email;
+            localStorage.setItem('refreshToken', action.payload.refreshToken);
+            localStorage.setItem('token', action.payload.accessToken)
         })
         builder.addCase(reg.rejected, (state, action) => {
             state.error = action.payload
 
-        })
-        //forgotPas
-        builder.addCase(forgotPass.pending, (state) => {
-            state.loading = true
-        })
+        }),
+            //forgotPas
+            builder.addCase(forgotPass.pending, (state) => {
+                state.loading = true
+            })
         builder.addCase(forgotPass.fulfilled, (state, action) => {
             state.loading = false;
             state.forgotPassStatus = action.payload.success
@@ -228,12 +303,12 @@ const authSlice = createSlice({
         })
         builder.addCase(forgotPass.rejected, (state, action) => {
             state.error = action.payload
-        })
+        }),
 
-        //resetPas
-        builder.addCase(resetPass.pending, (state) => {
-            state.loading = true
-        })
+            //resetPas
+            builder.addCase(resetPass.pending, (state) => {
+                state.loading = true
+            })
         builder.addCase(resetPass.fulfilled, (state, action) => {
             state.loading = false;
             console.log('reset');
@@ -247,6 +322,6 @@ const authSlice = createSlice({
 })
 
 
-export const { addRegValue } = authSlice.actions
+export const { addRegValue, exit } = authSlice.actions
 
 export default authSlice.reducer

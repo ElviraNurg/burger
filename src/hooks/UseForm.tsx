@@ -9,6 +9,6 @@ const useForm = () => {
         const { name, value } = e.currentTarget;
         setValues({ ...values, [name]: value })
     }
-return {values, onChange}
+return {values, setValues, onChange}
 }
 export default useForm

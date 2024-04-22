@@ -3,22 +3,36 @@ import ConstructorItem from '../../UI/constructoritem/ConstructorItem';
 import { useTypedDispatch, useTypedSelector } from '../../hooks/useTypedSelector';
 import { useEffect, useRef, useState } from 'react';
 import TotalPrice from '../../UI/totalPrice/TotalPrice';
-import { getOrder } from '../../store/constructor/constroctorSlice';
+import { change, getOrder } from '../../store/constructor/constroctorSlice';
 import { Dispatch } from 'react';
 import { useResize } from '../../hooks/useResize';
 import TitleModal from '../../UI/title-modal/TitleModal';
 import { useDrop } from 'react-dnd';
 import { IIngredientType } from '../../types/burger';
 import { addItem } from '../../store/constructor/constroctorSlice';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { getLocation } from '../../store/location/location';
 interface IConstructorProps {
     setActive: Dispatch<React.SetStateAction<boolean>>;
 }
 const BurgerConstructor = ({ setActive }: IConstructorProps) => {
-
-    const orderItems = useTypedSelector(state => state.consrtructor.orderItems);
+    const auth = useTypedSelector(store => store.auth.authUser);
+    const navigate = useNavigate();
+    const location = useLocation();
+    
     const dispatch = useTypedDispatch();
     const size = useResize();
-
+    const [localOrders, setLocalOrders] = useState<{bun:IIngredientType|[],otherIngridients:IIngredientType|[]}>({bun:[],otherIngridients:[]})
+    useEffect(() => {
+        localStorage.getItem('orderItems') && setLocalOrders(JSON.parse(localStorage.getItem('orderItems')||'{bun:[],otherIngridients:[]}'))
+    }, [])
+    
+useEffect(()=>{
+   dispatch(change(localOrders))
+},[localOrders])
+    const orderItems =useTypedSelector(state => state.consrtructor.orderItems);
+  //  console.log('local',localOrders)
+   // console.log('orderItems', orderItems);
 
     const getPrice = () => {
         let total = 0
@@ -36,19 +50,25 @@ const BurgerConstructor = ({ setActive }: IConstructorProps) => {
     const totalPrice = getPrice()
     const handleClick = () => {
         const orderIdList = getOrderIdList();
-        dispatch(getOrder(orderIdList));
-        setActive ? setActive(false) : null
+        dispatch(getLocation(location.pathname));
+        console.log(auth);
+        if (auth) {
+            dispatch(getOrder(orderIdList));
+            localStorage.removeItem('orderItems')
+            setActive ? setActive(false) : null
+        } else {
+            navigate('/login');
+            localStorage.setItem('orderItems', JSON.stringify(orderItems))
+        }
     }
-  
-    ///
-    const {data} = useTypedSelector(state => state.ingridients.ingridients);
+   
+    const { data } = useTypedSelector(state => state.ingridients.ingridients);
     const [buns, setBuns] = useState<IIngredientType[] | null>(null)
 
-    const refBuns  = useRef<IIngredientType[]>();
+    const refBuns = useRef<IIngredientType[]>();
 
-    //console.log('data', data);
 
-   
+
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: 'box',
         drop: (item: IIngredientType) => {
@@ -61,20 +81,20 @@ const BurgerConstructor = ({ setActive }: IConstructorProps) => {
     })
     )
     const isActive = isOver && canDrop;
-    
+
     const generateKey = () => {
         return Number(`${new Date().getTime()}`);
     }
-    
+
     const addItemInDrop = (item: IIngredientType) => {
         item = { ...item, __v: generateKey() }
 
-       // console.log('buns=>', refBuns.current);
-       // console.log('data', data);
-        
+        // console.log('buns=>', refBuns.current);
+        // console.log('data', data);
+
         if (orderItems.bun.length === 0 && item.type !== 'bun') {
-           // console.log('no buns');
-           refBuns.current && dispatch(addItem(refBuns.current[0]))
+            // console.log('no buns');
+            refBuns.current && dispatch(addItem(refBuns.current[0]))
             dispatch(addItem(item))
         } else {
             dispatch(addItem(item))
@@ -87,8 +107,8 @@ const BurgerConstructor = ({ setActive }: IConstructorProps) => {
             const buns = data.filter(el => el.type === 'bun')
             setBuns(buns)
             refBuns.current = buns
-        }else{
-            console.log('!!!!!!!!');   
+        } else {
+            console.log('!!!!!!!!');
         }
     }, [data])
 
@@ -97,10 +117,10 @@ const BurgerConstructor = ({ setActive }: IConstructorProps) => {
     }, [orderItems])
 
     useEffect(() => {
-      // console.log('мorderItems=>111', orderItems);
+        // console.log('orderItems=>111', orderItems);
     }, [orderItems])
     useEffect(() => {
-      // console.log('buns=>111', buns);
+        // console.log('buns=>111', buns);
     }, [buns])
 
 
@@ -110,7 +130,7 @@ const BurgerConstructor = ({ setActive }: IConstructorProps) => {
             {size.isScreenS ? <TitleModal text='Заказ' setActive={setActive} parent='orderInfo' /> : null}
             <div className={styles.constructor__wrapper}>
                 <ul ref={drop}
-                    /* style={{ backgroundColor: isActive ? "green" : "red" }}  */
+                     style={{ backgroundColor: isActive ? "green" : "red" }}  
                     className={styles.constructor__list}>
                     {orderItems.bun[0] ? <ConstructorItem
                         index={1000}

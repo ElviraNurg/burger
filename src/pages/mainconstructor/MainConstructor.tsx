@@ -40,7 +40,7 @@ const MainConstructor = () => {
 
             <div className={styles.mainconstructor__wrapper}>
                 <BurgerIngridients />
-                {size.isScreenS !== false ? <div>
+                {size.isScreenS  ? <div>
                     {totalPrice ?
                         <TotalPrice totalPrice={totalPrice}
                         text='Смотреть заказ'
