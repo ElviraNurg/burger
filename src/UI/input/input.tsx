@@ -35,7 +35,7 @@ setPassInputType('text'):setPassInputType('password')
             <input
                 /*             {...settigs}
                             minLength={2} maxLength={8} */
-                className={styles.input}
+                className={parent==='profile'?`${styles.input} ${styles.input__profile}`:styles.input}
                 type={inputName==='password'?passInputType:inputType}
                 name={inputName}
                 placeholder={placeholder}
@@ -44,7 +44,7 @@ setPassInputType('text'):setPassInputType('password')
                 disabled={parent === 'profile' && disabled ? true : false}
             />
 
-            <label className={styles.label} htmlFor={inputName}>
+            <label className={parent==='profile'?`${styles.label} ${styles.label__profile}`:styles.label} htmlFor={inputName}>
                 {text}
                 {inputName === 'password'&&parent !== 'profile' 
                  && <LookPass

@@ -55,10 +55,10 @@ const AppHeader = () => {
                             </Link>
                         </li>
                         <li className={styles.nav__item}>
-                            <a className={styles.nav__link} href="">
+                            <Link className={styles.nav__link} to={'/feed'}>
                                 <IconOrder className={styles.nav__icon} />
                                 Лента заказов
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </nav>

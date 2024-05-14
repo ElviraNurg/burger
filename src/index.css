@@ -12,6 +12,7 @@
   --modal-bc: #1C1C21;
   --blue-text: #4C4CFF;
   --text-lilac: #8585AD;
+  --text-color: #F2F2F3;
 }
 
 a {
@@ -53,6 +54,7 @@ input {
 }
 
 @media(min-width:768px) {
+
   /* W3C standard
    сейчас только для Firefox */
   * {
@@ -71,7 +73,7 @@ input {
   }
 
   *::-webkit-scrollbar-thumb {
-    background-color:#8585AD;
+    background-color: #8585AD;
     border-radius: 5px;
     border: none;
   }

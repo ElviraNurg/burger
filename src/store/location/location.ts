@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface AuthState {
+interface LocationState {
     location: string;
 }
 
 
-const InitialState = {
+const InitialState:LocationState = {
     location: ''
 }
 

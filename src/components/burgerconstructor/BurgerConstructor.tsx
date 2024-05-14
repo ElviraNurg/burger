@@ -31,9 +31,7 @@ useEffect(()=>{
    dispatch(change(localOrders))
 },[localOrders])
     const orderItems =useTypedSelector(state => state.consrtructor.orderItems);
-  //  console.log('local',localOrders)
-   // console.log('orderItems', orderItems);
-
+  
     const getPrice = () => {
         let total = 0
         orderItems.bun.forEach(item => total = total + item.price * 2)
@@ -88,10 +86,6 @@ useEffect(()=>{
 
     const addItemInDrop = (item: IIngredientType) => {
         item = { ...item, __v: generateKey() }
-
-        // console.log('buns=>', refBuns.current);
-        // console.log('data', data);
-
         if (orderItems.bun.length === 0 && item.type !== 'bun') {
             // console.log('no buns');
             refBuns.current && dispatch(addItem(refBuns.current[0]))
@@ -130,7 +124,6 @@ useEffect(()=>{
             {size.isScreenS ? <TitleModal text='Заказ' setActive={setActive} parent='orderInfo' /> : null}
             <div className={styles.constructor__wrapper}>
                 <ul ref={drop}
-                     style={{ backgroundColor: isActive ? "green" : "red" }}  
                     className={styles.constructor__list}>
                     {orderItems.bun[0] ? <ConstructorItem
                         index={1000}

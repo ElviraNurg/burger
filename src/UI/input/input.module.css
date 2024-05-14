@@ -21,22 +21,52 @@
     color: var(--text-lilac);
 }
 
+.input__profile{
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+
 .label{
-    position: absolute;
-    top: 0;
+    position: relative;
+    top: 4px;
     padding-left: 20px;
     min-width: 304px;
     max-width: 480px;
     box-sizing: border-box;
+    color: var(--text-lilac);
+    min-height: 20px;
+}
+.label__profile{
+    position: absolute;
 }
 
 .label__icon{
     position: absolute;
-    top: -53px;
+    top: -55px;
    right: 12px;
 }
 .label__change_icon{
     position: absolute;
     top: calc(50%);
    right: 12px;
+}
+
+@media(min-width:1300px){
+    .input,
+    .label{
+        width: 480px;
+    }
+    .input{
+        min-height: 64px;
+    }
+    .label{
+        top: 8px;
+        min-height: 24px;
+    }
+    .input__profile{
+        padding-top: 24px;
+    }
+    .label__icon{
+        top: -70px;
+    }
 }

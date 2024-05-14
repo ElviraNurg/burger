@@ -5,13 +5,13 @@ import { forwardRef, Dispatch } from 'react';
 
 interface IIngridientsListProps {
     dataIngredient: IIngredientType[];
-    setModalActive: Dispatch<React.SetStateAction<boolean>>;
-    setCurrentItem: React.Dispatch<React.SetStateAction<null|IIngredientType>>;
+  /*   setModalActive: Dispatch<React.SetStateAction<boolean>>;
+    setCurrentItem: React.Dispatch<React.SetStateAction<null|IIngredientType>>; */
     ref: React.MutableRefObject<HTMLDivElement | null>;
     text: string;
 }
 
-const IngredientsList = forwardRef(({ dataIngredient, setModalActive, setCurrentItem,
+const IngredientsList = forwardRef(({ dataIngredient, /* setModalActive, setCurrentItem,  */
     text}: IIngridientsListProps, ref: any) => {
         
     return (
@@ -19,8 +19,8 @@ const IngredientsList = forwardRef(({ dataIngredient, setModalActive, setCurrent
             <h3 className={styles.ingridients__name}>{text}</h3>
             <ul className={styles.ingridients__list}>
                 {dataIngredient.map((item) => <IngridientDetails
-                    setModalActive={setModalActive}
-                    setcurrentItem={setCurrentItem}
+                    /* setModalActive={setModalActive}
+                    setcurrentItem={setCurrentItem} */
                     key={item._id}
                     item={item}
                    />)}

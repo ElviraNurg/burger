@@ -8,7 +8,6 @@ import { fetchIngridients } from '../../store/action-creators/ingridients';
 import { clearOrders, clearOrderNum } from '../../store/constructor/constroctorSlice';
 import { IIngredientType } from '../../types/burger';
 import Tabs from '../../UI/tabs/Tabs';
-import ContentModal from '../../UI/contentmodal/ContentModal';
 import OrderInfo from '../../UI/orderInfo/OrderInfo';
 declare global {
     interface Object {
@@ -23,14 +22,15 @@ interface IGroupIngridients {
 
 const BurgerIngridients = () => {
     const dispatch = useTypedDispatch()
-    const [modalActive, setModalActive] = useState(false);
-    const [modalOrderActive, setModalOrderActive] = useState(false);
-    const [currentItem, setCurrentItem] = useState<IIngredientType | null>(null)
+   // const [modalActive, setModalActive] = useState(false);//Модалка с ингредиентом
+    const [modalOrderActive, setModalOrderActive] = useState(false);//Модалка с заказом
+   // const [currentItem, setCurrentItem] = useState<IIngredientType | null>(null)
     const [dataIngredient, setDataIngredient] = useState<IGroupIngridients>({})
     const [activeTab, setActiveTab] = useState('');
 
     const { data } = useTypedSelector(state => state.ingridients.ingridients);
     const orderNum = useTypedSelector(state => state.consrtructor.orderNumber.number)
+//console.log('data', data);
 
     const refBun = useRef<null | HTMLDivElement>(null);
     const refSauce = useRef<null | HTMLDivElement>(null);
@@ -48,7 +48,7 @@ const BurgerIngridients = () => {
     }, [data])
 
     useEffect(() => {
-        dispatch(fetchIngridients())
+        data.length===0&&dispatch(fetchIngridients())
     }, [])
 
     useEffect(() => {
@@ -75,34 +75,31 @@ const BurgerIngridients = () => {
                 <div className={styles.ingridients__list_box}>
                     {dataIngredient.bun ? <IngredientsList
                         dataIngredient={dataIngredient.bun}
-                        setModalActive={setModalActive}
-                        setCurrentItem={setCurrentItem}
+                        /* setModalActive={setModalActive}
+                        setCurrentItem={setCurrentItem} */
+                        
                         text='Булки'
                         ref={refBun} />
                         : null}
                     {dataIngredient.sauce ? <IngredientsList
                         dataIngredient={dataIngredient.sauce}
-                        setModalActive={setModalActive}
-                        setCurrentItem={setCurrentItem}
-                        text='Соусы'
+                        /* setModalActive={setModalActive}
+                        setCurrentItem={setCurrentItem} */
+                         text='Соусы'
                         ref={refSauce} />
                         : null}
                     {dataIngredient.main ? <IngredientsList
                         dataIngredient={dataIngredient.main}
-                        setModalActive={setModalActive}
-                        setCurrentItem={setCurrentItem}
+                        /* setModalActive={setModalActive}
+                        setCurrentItem={setCurrentItem} */
                         text='Основное'
                         ref={refMain} />
                         : null}
                 </div>
             </div>
 
-
-            <ModalOverlay active={modalActive} setActive={setModalActive}>
-                <Modal setActive={setModalActive} Children={<ContentModal currentItem={currentItem} setActive={setModalActive} />} />
-            </ModalOverlay>
-            <ModalOverlay active={modalOrderActive} setActive={setModalOrderActive}>
-                <Modal setActive={setModalOrderActive} Children={<OrderInfo orderNum={orderNum} setActive={setModalOrderActive} />} />
+             <ModalOverlay active={modalOrderActive} setActive={setModalOrderActive}>
+                <Modal  Children={<OrderInfo orderNum={orderNum} setActive={setModalOrderActive} />} />
             </ModalOverlay>
         </section>
         </>

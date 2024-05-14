@@ -7,18 +7,12 @@ interface ISetValues {
     [name: string]: any
 }
 
-interface IRegValue {
-    name: string,
-    email: string,
-    password: string
-}
-
 interface AuthState {
     loading: boolean;
     error: any;
     authUser: boolean;
     regValue: ISetValues;
-    user: IRegValue;
+    user: ISetValues;
     forgotPassStatus: boolean;
 }
 
@@ -41,7 +35,7 @@ const InitialState: AuthState = {
 
 export const resetPass = createAsyncThunk(
     'resetPass',
-    async function (action: ISetValues, { rejectWithValue, getState }) {
+    async function (action: ISetValues, { rejectWithValue }) {
         try {
             const response = await fetch(`${config.baseUrl}${config.reset}`, {
                 method: "POST",
@@ -63,7 +57,7 @@ export const resetPass = createAsyncThunk(
 
 export const forgotPass = createAsyncThunk(
     'forgotPass',
-    async function (action: ISetValues, { rejectWithValue, getState }) {
+    async function (action: ISetValues, { rejectWithValue }) {
         try {
             const response = await fetch(`${config.baseUrl}${config.forgot}`, {
                 method: "POST",
@@ -124,10 +118,7 @@ export const auth = createAsyncThunk(
             if (!response.ok) {
                 throw new Error('404 - Error')
             }
-            // console.log('response.json()', response.json());
-
             const data = response.json();
-            // console.log('data', data);
 
             return data;
 
@@ -152,8 +143,6 @@ export const checkToken = createAsyncThunk(
             if (!response.ok) {
                 throw new Error('404 - Error')
             }
-            // console.log('response.json()', response.json());
-
             const data = await response.json()
             return data;
 
@@ -216,7 +205,30 @@ export const getUserOrders = createAsyncThunk(
             return rejectWithValue(error.message)
         }
     })
+export const getUser = createAsyncThunk(
+    'getUser',
+    async function (action: string, { rejectWithValue }) {
+        console.log(action);
 
+        try {
+            const response = await fetch(`${config.baseUrl}${config.user}`, {
+
+                method: "GET",
+                headers: {
+                    authorization: action,
+                    'Content-Type': 'application/json'
+                },
+
+            })
+            if (!response.ok) {
+                throw new Error('Error')
+            }
+
+            return response.json();
+        } catch (error: any) {
+            return rejectWithValue(error.message)
+        }
+    })
 const authSlice = createSlice({
     name: 'auth',
     initialState: InitialState,
@@ -226,7 +238,8 @@ const authSlice = createSlice({
         },
         exit: (state) => {
             state.authUser = false;
-            state.regValue = {}
+            state.regValue = {};
+            state.user = {};
         }
 
     },
@@ -237,9 +250,6 @@ const authSlice = createSlice({
         }),
             builder.addCase(changeUserDatas.fulfilled, (state, action) => {
                 state.loading = false;
-               // console.log('changeUserDatas');
-
-                console.log('changeUserDatas',action.payload);
                 state.user = action.payload.user
             }),
             builder.addCase(changeUserDatas.rejected, (state, action) => {
@@ -248,8 +258,21 @@ const authSlice = createSlice({
 
 
             }),
+            //getUser
+            builder.addCase(getUser.pending, (state) => {
+                state.loading = true
+            }),
+            builder.addCase(getUser.fulfilled, (state, action) => {
+                state.loading = false;
+                state.authUser = true;
+                state.user.name = action.payload.user.name
+                state.user.email = action.payload.user.email
+            }),
+            builder.addCase(getUser.rejected, (state, action) => {
+                state.error = action.payload
+            }),
             //checkToken
-            builder.addCase(checkToken.pending, (state) => {
+            /* builder.addCase(checkToken.pending, (state) => {
                 state.loading = true
             }),
             builder.addCase(checkToken.fulfilled, (state) => {
@@ -258,7 +281,8 @@ const authSlice = createSlice({
             }),
             builder.addCase(checkToken.rejected, (state, action) => {
                 state.error = action.payload
-            }),
+            }), */
+
             //auth
             builder.addCase(auth.pending, (state) => {
                 state.loading = true;
@@ -267,8 +291,8 @@ const authSlice = createSlice({
                 state.loading = false;
                 localStorage.setItem('token', action.payload.accessToken);
                 localStorage.setItem('refreshToken', action.payload.refreshToken);
-                state.user.name = action.payload.user.name;
-                state.user.email = action.payload.user.email;
+                state.user = action.payload.user;
+                state.authUser = true
             }),
             builder.addCase(auth.rejected, (state, action) => {
                 state.error = action.payload
@@ -279,10 +303,8 @@ const authSlice = createSlice({
             })
         builder.addCase(reg.fulfilled, (state, action) => {
             state.loading = false;
-            console.log(action.payload);
-            
-            state.user.name = action.payload.user.name;
-            state.user.email = action.payload.user.email;
+            state.user = action.payload.user;
+            state.authUser = true;
             localStorage.setItem('refreshToken', action.payload.refreshToken);
             localStorage.setItem('token', action.payload.accessToken)
         })
@@ -298,8 +320,6 @@ const authSlice = createSlice({
             state.loading = false;
             state.forgotPassStatus = action.payload.success
             console.log(state.forgotPassStatus);
-
-
         })
         builder.addCase(forgotPass.rejected, (state, action) => {
             state.error = action.payload

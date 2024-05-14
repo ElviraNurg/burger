@@ -12,8 +12,6 @@ export const fetchIngridients = () => {
             fetch(`${baseUrl}/ingredients`)
             .then(res => res.json())
             .then(json => dispatch({ type: IngridientsActionTypes.FETCH_INGRIDIENTS_SUCCESS, payload: json }))
-            
-            // dispatch({ type: IngridientsActionTypes.FETCH_INGRIDIENTS_SUCCESS, payload: (response.data.json()) })
         }
         catch (e) {
             dispatch({
@@ -21,5 +19,11 @@ export const fetchIngridients = () => {
                 payload: 'Не удалось загрузить данные'
             })
         }
+    }
+}
+export const resetStore=()=>{
+    return {
+        type: IngridientsActionTypes.RESET_STORE,
+        //payload:[]
     }
 }

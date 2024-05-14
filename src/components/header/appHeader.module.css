@@ -16,11 +16,16 @@
     height: 64px;
     padding: 0;
     background-color: #1c1c21;
-    border: 1px solid white;
     position: relative;
     align-self: flex-end;
 }
+.button__opened{
+    background-color: var(--modal-bc);
+}
 
+.button__closed{
+    background-color: var(--background);
+}
 .button__opened::before {
     content: "";
     position: absolute;
@@ -69,7 +74,7 @@
     position: absolute;
     right: 0;
     top: 0;
-    z-index: 3;
+    z-index: 99;
     width: 100%;
     box-sizing: border-box;
 }
@@ -86,7 +91,6 @@
 
 .nav__opened .nav__list {
     display: block;
-    outline: solid 1px white;
 }
 
 .nav__item {
@@ -152,7 +156,6 @@
     .header__wrapper {
         width: 97%;
         margin: 0 auto;
-        outline: 1px solid red;
         padding: 0;
         position: relative;
     }
@@ -181,6 +184,7 @@
         grid-template-columns: 160px 160px;
         min-height: 56px;
         position: relative;
+        background-color: var(--modal-bc);
     }
 
     .nav__item:first-child {
@@ -198,7 +202,6 @@
     .header__wrapper {
         width: 1280px;
         margin: 0 auto;
-        outline: 1px solid red;
         padding: 0;
         position: relative;
     }

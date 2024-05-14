@@ -3,19 +3,22 @@ import styles from './ingridientdetails.module.css';
 import PriceIcon from '../../assets/icons/price-icon.svg?react';
 import { IIngredientType } from '../../types/burger';
 import { useTypedDispatch, useTypedSelector } from '../../hooks/useTypedSelector';
-import { addItem } from '../../store/constructor/constroctorSlice';
+import { addCurrentItem, addItem, toggleModalActive } from '../../store/constructor/constroctorSlice';
 import { useDrag } from 'react-dnd';
 import { useResize } from '../../hooks/useResize';
+import { Link } from 'react-router-dom';
+
 interface IPropsIngridientDetails {
     item: IIngredientType;
-    setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
-    setcurrentItem: React.Dispatch<React.SetStateAction<null | IIngredientType>>;
+   /*  setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+    setcurrentItem: React.Dispatch<React.SetStateAction<null | IIngredientType>>; */
+    currentItem?: IIngredientType;
 }
 
 
-const IngridientDetails = ({ item, setModalActive, setcurrentItem, }: IPropsIngridientDetails) => {
+const IngridientDetails = ({ item, /* setModalActive, setcurrentItem,  */currentItem }: IPropsIngridientDetails) => {
     const dispatch = useTypedDispatch();
-    const size=useResize()
+    const size = useResize();
     const imageUrl = item.image_mobile;
     const orderItems = useTypedSelector(state => state.consrtructor.orderItems)
     const { data } = useTypedSelector(state => state.ingridients.ingridients);
@@ -50,8 +53,8 @@ const IngridientDetails = ({ item, setModalActive, setcurrentItem, }: IPropsIngr
     }, [orderItems])
 
     const onClickItem = (item: IIngredientType) => {
-        setModalActive(true);
-        setcurrentItem(item);
+        dispatch(addCurrentItem(item));
+        dispatch(toggleModalActive(true))
     }
     //console.log('orderItems', orderItems);
     /* interface DropResult {
@@ -78,15 +81,15 @@ const IngridientDetails = ({ item, setModalActive, setcurrentItem, }: IPropsIngr
         <>
             <li className={styles.ingridientdetails__box}
                 ref={drag}
-                style={{ border: isDragStart ? "5px solid pink" : "0px" }}
-                 onDragOver={(evt) => evt.preventDefault()} >
-                <div onClick={() => onClickItem(item)}>
+                //style={{ border: isDragStart ? "5px solid pink" : "0px" }}
+                onDragOver={(evt) => evt.preventDefault()} >
+                <Link to={`/ingredients/${item._id}`} onClick={() => onClickItem(item)}>
                     <img className={styles.ingridientdetails__image} src={imageUrl} alt="Изображение ингредиента" />
                     <span className={`${countClass}`}>{count > 0 ? count : null}</span>
                     <p className={styles.ingridientdetails__price}>{item.price}<PriceIcon /></p>
                     <p className={styles.ingridientdetails__name}>{item.name}</p>
-                </div>
-                {size.isScreenS&&<button onClick={() => onClick(item)} className={styles.ingridientdetails__button}><span>Добавить</span></button>}
+                </Link>
+                {size.isScreenS && <button onClick={() => onClick(item)} className={styles.ingridientdetails__button}><span>Добавить</span></button>}
             </li>
         </>
     )

@@ -2,18 +2,15 @@ import styles from './button.module.css';
 
 type ButtonProps = {
     text: string;
-    onClick?: ()=>void;
-    type:"button"|"submit"|"reset"
+    onClick?: () => void;
+    type: "button" | "submit" | "reset"
 }
 
-const Button = ({ text,type, onClick }:ButtonProps) => {
-   
-   //const buttonType=parent==='enter'? styles.button__enter:styles.button__reg;
+const Button = ({ text, type, onClick }: ButtonProps) => {
+    const button = styles.button;
 
-   const button=styles.button;
-   
     return (
-        <button type={type} onClick={onClick} className={ `${button}`}>{text}</button>
+        <button type={type} onClick={onClick} className={`${button}`}>{text}</button>
     )
 }
 

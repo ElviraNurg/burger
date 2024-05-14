@@ -5,12 +5,11 @@ import styles from './modal.module.css';
 import { Children } from 'react';
 
 interface IModal {
-    setActive: Dispatch<React.SetStateAction<boolean>>;
     Children: JSX.Element;
 
 }
 
-const Modal = ({ setActive, Children }: IModal) => {
+const Modal = ({ Children }: IModal) => {
 
     return (
         <div className={styles.modal__content} onClick={e => e.stopPropagation()}>

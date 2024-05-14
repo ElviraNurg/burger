@@ -28,6 +28,15 @@ export const ingridientsReducer = (state = InitialState, action: IngridientsActi
                     data: []
                 }
             }
+        case IngridientsActionTypes.RESET_STORE:
+            return {
+                loading: true,
+                error: null,
+                ingridients: {
+                    success: false,
+                    data: []
+                }
+            }
         default:
             return state
     }

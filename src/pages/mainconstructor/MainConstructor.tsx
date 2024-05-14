@@ -40,7 +40,8 @@ const MainConstructor = () => {
 
             <div className={styles.mainconstructor__wrapper}>
                 <BurgerIngridients />
-                {size.isScreenS  ? <div>
+                {size.isScreenS  ? 
+                <div>
                     {totalPrice ?
                         <TotalPrice totalPrice={totalPrice}
                         text='Смотреть заказ'
@@ -52,7 +53,7 @@ const MainConstructor = () => {
                     : <BurgerConstructor setActive={setModalConstructor} />}
 
                 <ModalOverlay active={modalConstructor} setActive={setModalConstructor}>
-                    <Modal setActive={setModalConstructor} Children={<BurgerConstructor setActive={setModalConstructor} />} />
+                    <Modal  Children={<BurgerConstructor setActive={setModalConstructor} />} />
                 </ModalOverlay>
 
             </div>

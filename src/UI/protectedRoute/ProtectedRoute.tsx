@@ -1,6 +1,6 @@
 import React from 'react';
-import { Navigate, RouteProps} from "react-router-dom";
-import { auth } from '../../store/auth/authSlice';
+import { Navigate} from "react-router-dom";
+
 function ProtectedRoute ({ element: Component, ...props  }: {
     element: React.FC<any>;
     auth:boolean

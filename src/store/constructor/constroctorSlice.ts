@@ -9,6 +9,8 @@ interface ConstructorState {
         otherIngridients: IIngredientType[]
     },
     orderNumber: { number: number | null },
+    currentItem: IIngredientType | null,
+    modalActive: boolean,
     loading: boolean;
     error: any;
 }
@@ -19,6 +21,8 @@ const InitialState: ConstructorState = {
         otherIngridients: []
     },
     orderNumber: { number: null },
+    currentItem: null,//Детали ингредиента
+    modalActive: false,
     loading: false,
     error: null
 }
@@ -55,7 +59,7 @@ const constructorSlice = createSlice({
     initialState: InitialState,
     reducers: {
         addItem: (state, action: PayloadAction<IIngredientType>) => {
-                action.payload.type === 'bun' ?
+            action.payload.type === 'bun' ?
                 state.orderItems.bun = [action.payload]
                 : state.orderItems.otherIngridients = [...state.orderItems.otherIngridients, action.payload]
         },
@@ -76,9 +80,14 @@ const constructorSlice = createSlice({
             console.log(action.payload);
 
             state.orderItems = action.payload;
-
         },
+        addCurrentItem: (state, action) => {
+            state.currentItem = action.payload
+        },
+        toggleModalActive: (state, action) => {       
+            state.modalActive = action.payload;
 
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getOrder.pending, (state) => {
@@ -97,6 +106,6 @@ const constructorSlice = createSlice({
 })
 
 
-export const { addItem, deleteItem, clearOrders, clearOrderNum, deleteItemOfType, change } = constructorSlice.actions
+export const { addItem, deleteItem, clearOrders, clearOrderNum, deleteItemOfType, change, addCurrentItem,toggleModalActive } = constructorSlice.actions
 
 export default constructorSlice.reducer

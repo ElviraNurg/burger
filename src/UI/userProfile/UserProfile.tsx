@@ -47,9 +47,7 @@ useEffect(()=>{
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const token = localStorage.getItem('token');
-        console.log(values, values);
-        
+        const token = localStorage.getItem('token');        
         values && token && dispatch(changeUserDatas({ values, token }))
         setDisabled(true)
     }

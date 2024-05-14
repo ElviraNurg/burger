@@ -8,13 +8,16 @@
     align-items: center;
 }
 .buttons__box{
-    display: flex;
-    gap: 10px;
+   display: flex;
+   flex-direction: column-reverse;
+   gap: 10px;
+
 }
 .button{
     color: var(--blue-text);
     background-color: var(--background);
     border: none;
+    min-height: 40px;
 }
 .input__box{
     position: relative;
@@ -25,5 +28,9 @@
         width: 480px;
         gap: 24px;
         margin-bottom: 80px;
+    }
+    .buttons__box{
+        flex-direction: row;
+        align-self: flex-end;
     }
 }
