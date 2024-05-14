@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import { store } from './store/index.ts'
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+//test
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
