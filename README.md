@@ -1,30 +1,27 @@
 # React + TypeScript + Vite
+<h2>Функционал:</h2>
+<ul>Приложение космической бургерной для ширины экрана 320px и 1320px с такими возможностями, как:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<li>сборка бургера (с применением React Drag and Drop)</li>
+<li>просмотр детальной информации об ингредиенте (всплывающее окно — Pop-up)</li>
+<li>просмотр ленты заказов с детализацией конкретного заказа (настроено WebSocket соединение)</li>
+<li>регистрация / авторизация</li>
+<li>возможность сброса и восстановления пароля</li>
+<li>редактирование данных пользователя в личном кабинете</li>
+</ul>
 
-Currently, two official plugins are available:
+<h2>Стек технологий:</h2>
+<ul>
+<li>React</li>
+<li>Redux Toolkit</li>
+<li>TypeScript</li>
+<li>Redux AsyncThunk</li>
+</ul>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<h3>Установа | разработка | запуск:</h3>
+<p>установка необходимых зависимостей: npm install<p>
+<p>сборка стабильной версии: npm build<p>
+<p>запуск проекта: npm run dev<p>
 
-## Expanding the ESLint configuration
+<a src="https://elviranurg.github.io/burger/">Ссылка на проект</a>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
