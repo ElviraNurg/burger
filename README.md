@@ -23,5 +23,5 @@
 <p>сборка стабильной версии: npm build<p>
 <p>запуск проекта: npm run dev<p>
 
-<a src="https://elviranurg.github.io/burger/">Ссылка на проект</a>
+<a href="https://elviranurg.github.io/burger/">Ссылка на проект</a>
 
