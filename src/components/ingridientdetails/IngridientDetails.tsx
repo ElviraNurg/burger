@@ -16,7 +16,7 @@ interface IPropsIngridientDetails {
 }
 
 
-const IngridientDetails = ({ item, /* setModalActive, setcurrentItem,  */currentItem }: IPropsIngridientDetails) => {
+const IngridientDetails = ({ item}: IPropsIngridientDetails) => {
     const dispatch = useTypedDispatch();
     const size = useResize();
     const imageUrl = item.image_mobile;
@@ -61,7 +61,7 @@ const IngridientDetails = ({ item, /* setModalActive, setcurrentItem,  */current
         name: string
     } */
 
-    const [{ isDragStart }, drag] = useDrag(() => ({
+    const [{  }, drag] = useDrag(() => ({
         type: 'box',
         item: item,
         /*  end: (item, dropResult) => {

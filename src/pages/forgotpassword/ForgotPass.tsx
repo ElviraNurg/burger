@@ -8,7 +8,7 @@ import useForm from "../../hooks/UseForm";
 import { FormEvent, useEffect } from 'react';
 import { useTypedDispatch, useTypedSelector } from '../../hooks/useTypedSelector';
 import { forgotPass } from '../../store/auth/authSlice';
-import { store } from '../../store';
+
 const ForgotPass = () => {
     const dispatch = useTypedDispatch();
     const passFetchStatus = useTypedSelector(store => store.auth.forgotPassStatus);

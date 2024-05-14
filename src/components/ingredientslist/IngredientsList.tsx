@@ -1,7 +1,7 @@
 import styles from './ingredientslist.module.css';
 import { IIngredientType } from '../../types/burger';
 import IngridientDetails from '../ingridientdetails/IngridientDetails';
-import { forwardRef, Dispatch } from 'react';
+import { forwardRef} from 'react';
 
 interface IIngridientsListProps {
     dataIngredient: IIngredientType[];

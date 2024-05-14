@@ -1,6 +1,5 @@
 import styles from './titlemodal.module.css';
 import { Dispatch } from 'react';
-import { useTypedDispatch } from '../../hooks/useTypedSelector';
 import { useNavigate } from 'react-router-dom';
 type Props = {
     text: string;
@@ -15,7 +14,6 @@ const onClickClose = () => {
     setActive(false);
     navigate(parent==='FeedItemDetails'?'/feed':'/constructor')
 }
-const dispatch=useTypedDispatch()
     return (
         <div className={titleBoxClass}>
             <h3 className={titleClass}>

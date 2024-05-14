@@ -67,7 +67,7 @@ useEffect(()=>{
 
 
 
-    const [{ canDrop, isOver }, drop] = useDrop(() => ({
+    const [{ }, drop] = useDrop(() => ({
         accept: 'box',
         drop: (item: IIngredientType) => {
             addItemInDrop(item)
@@ -78,7 +78,6 @@ useEffect(()=>{
         }),
     })
     )
-    const isActive = isOver && canDrop;
 
     const generateKey = () => {
         return Number(`${new Date().getTime()}`);

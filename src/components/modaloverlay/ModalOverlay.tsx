@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { useTypedDispatch } from '../../hooks/useTypedSelector';
 import styles from './modalOverlay.module.css';
 import { createPortal } from 'react-dom';
 import { useResize } from '../../hooks/useResize';

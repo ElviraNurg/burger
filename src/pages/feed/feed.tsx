@@ -22,10 +22,10 @@ const Feed = () => {
         status && dispatch(getOrdersList(orders.orders));
     }
    
-    const { getWebSocket} = useWebSocket(SOCKET_URL, {
+    const { } = useWebSocket(SOCKET_URL, {
         onOpen: () => dispatch(onConnect()),
         onClose: () => dispatch(onClose()),
-        shouldReconnect: (closeEvent) => true,
+        shouldReconnect: () => true,
         onMessage: (event: WebSocketEventMap['message']) => processMessages(event)
     });
 
@@ -59,7 +59,7 @@ const Feed = () => {
                     </div>
                     {activeTab === 'orders' &&
                         <ul className={styles.feeds}>
-                            {orderList.map((item: FeedListItemProps, index) => <li className={styles.feeds__item} key={item._id} >
+                            {orderList.map((item: FeedListItemProps) => <li className={styles.feeds__item} key={item._id} >
                                 <FeedListItem item={item} parent='Feed'/></li>)}
                         </ul>}
                     {activeTab === 'statistics' &&

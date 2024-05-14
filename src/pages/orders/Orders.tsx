@@ -1,13 +1,10 @@
-import styles from './orders.module.css';
-import { useTypedDispatch } from '../../hooks/useTypedSelector';
-
+//import styles from './orders.module.css';
 import useWebSocket from 'react-use-websocket';
 const Orders=()=>{
-const dispatch=useTypedDispatch();
-const token=localStorage.getItem('token').split(' ');
-const SOCKET_URL: string = `wss://norma.nomoreparties.space/orders/${token[1]}`;
 
-
+//const token=localStorage.getItem('token')?localStorage.getItem('token').split(' '):'';
+//const SOCKET_URL: string = `wss://norma.nomoreparties.space/orders/${token[1]}`;
+const SOCKET_URL: string = `wss://norma.nomoreparties.space/orders`
 const processMessages = (event: WebSocketEventMap['message']) => {
     const orders = JSON.parse(event.data)
     console.log('orders====>', orders);
@@ -19,7 +16,7 @@ const processMessages = (event: WebSocketEventMap['message']) => {
 const { } = useWebSocket(SOCKET_URL, {
     onOpen: ()=>console.log('connect'),
     onClose: () => console.log('No connect'),
-    shouldReconnect: (closeEvent) => true,
+    shouldReconnect: () => true,
     onMessage: (event: WebSocketEventMap['message']) => processMessages(event)
 });
 

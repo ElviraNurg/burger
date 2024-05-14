@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { Link } from 'react-router-dom';
 import AppHeader from "../../components/header/AppHeader";
 import Title from '../../UI/title/Title';

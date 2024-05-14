@@ -3,12 +3,12 @@ import Title from '../../UI/title/Title';
 import Input from '../../UI/input/input';
 import Button from '../../UI/button/button';
 import AppHeader from '../../components/header/AppHeader';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import useForm from "../../hooks/UseForm";
-import { FormEvent, useEffect } from 'react';
-import { useTypedDispatch, useTypedSelector } from '../../hooks/useTypedSelector';
+import { FormEvent } from 'react';
+import { useTypedDispatch} from '../../hooks/useTypedSelector';
 import { resetPass } from '../../store/auth/authSlice';
-import { store } from '../../store';
+
 const ResetPass = () => {
     const { values, onChange } = useForm();
     const dispatch=useTypedDispatch();
