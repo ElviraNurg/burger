@@ -19,13 +19,15 @@
     position: relative;
     align-self: flex-end;
 }
-.button__opened{
+
+.button__opened {
     background-color: var(--modal-bc);
 }
 
-.button__closed{
+.button__closed {
     background-color: var(--background);
 }
+
 .button__opened::before {
     content: "";
     position: absolute;
@@ -106,7 +108,6 @@
     left: 0;
     margin-left: 8px;
     min-height: 64px;
-
 }
 
 .nav__link {
@@ -115,7 +116,8 @@
     gap: 8px;
     position: relative;
 }
-.nav__item_wrapper{
+
+.nav__item_wrapper {
     width: 100%;
 }
 
@@ -131,9 +133,14 @@
 .nav__item_wrapper:focus button {
     color: #f2f2f3;
 }
+
 .nav__link .nav__icon,
 .nav__link {
     fill: #8585AD;
+    font-size: 14px;
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400;
 }
 
 .nav__link:focus .nav__icon,
@@ -143,11 +150,11 @@
     color: #f2f2f3;
 }
 
-.nav__link.nav__link__active{
+.nav__link.nav__link__active {
     color: #f2f2f3;
 }
 
-.nav__arrow{
+.nav__arrow {
     position: absolute;
     right: 20px;
 }

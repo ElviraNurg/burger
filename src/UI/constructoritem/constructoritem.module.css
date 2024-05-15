@@ -23,7 +23,7 @@
 }
 
 .constructor__item_swipe {
-    right: 144px;
+    right: 136px;
     overflow: hidden;
     width: calc(100% + 144px);
 }

@@ -42,7 +42,7 @@ export const resetPass = createAsyncThunk(
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(action)
+                body: '/reset-password/'+JSON.stringify(action)
             })
             if (!response.ok) {
                 throw new Error('404 - Error')
